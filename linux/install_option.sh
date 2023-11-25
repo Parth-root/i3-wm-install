@@ -214,10 +214,14 @@ esac
 pbar 91 1
 # -------------------------------script for stow ---------------------------
 cd $curdirgit
-cd alldot
-banner "runing Stow script"
+cd config
+banner "copying config file"
 sleep 2
 pbar 95 1
+bash copy-command.sh
+./copy-command.sh
+########
+:'
 banner "Stow will set file to its location"                        
 read -p "Continue? [y/n] " yn 
 
@@ -229,6 +233,7 @@ case $yn in
 		./masterstow.sh;;
         * ) banner "skiped";;  
 esac
+'
 pbar 100 1
 banner "--------------------> END <-------------------- "
 #comment #uncomment to make comment malitpal line
