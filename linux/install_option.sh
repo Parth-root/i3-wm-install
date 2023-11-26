@@ -76,17 +76,18 @@ startpoint=$1 # save postion to use in smooth progress bar
 #: << 'comment'  #uncomment to use comment for test (for advanced user only)
 
 #starting instaling
-
+sudo $pack update -y
+sudo $pack upgrade -y
 pbar 1 1
 banner "Startship instaling..."
 sleep 1
 sudo $pack install curl -y &>/dev/null # curl
 pbar 12 1
 curl -sS https://starship.rs/install.sh | sh
-sudo $pack update -y
-sudo $pack upgrade -y
 pbar 22 1
-sudo $pack install neofetch expect -y
+banner "neofetch and lolcat install"
+sudo $pack install neofetch lolcat expect -y
+#expect is used in sometime
 pbar 31 1
 banner "instaling i3 & kitty & git & screenshot"
 sleep 1
@@ -144,7 +145,7 @@ read -p "Is this leptop (ading user to fix Brightness not working)" yn
 case $yn in 
         y ) 
                 banner "Adding user in group"
-		sudo $pack install brightnessctl
+		sudo $pack install brightnessctl -y
                 sudo usermod -aG video ${USER}
 		;;
         * ) banner "skiped";;
@@ -155,7 +156,7 @@ read -p "install xinit(to run desktop environment)??? (Y/N)" yn
 case $yn in 
         y ) 
                 banner "Instaling xinit"
-		sudo $pack install xinit
+		sudo $pack install xinit -y
 		;;
         * ) banner "skiped";;
 esac
@@ -191,8 +192,9 @@ case $yn in
 		sudo ninja -C build
 		sudo ninja -C build install
                 ;;
-        * ) banner "skiping picom dont add blur adn effect";;
+        * ) banner "| ~ skiping picom:no blur and other windows ~ |";;
 esac
+sleep 2
 pbar 71 1
 # -------------------------- end picom ----------------------
 
@@ -218,25 +220,10 @@ cd config
 banner "copying config file"
 sleep 2
 pbar 95 1
-bash copy-command.sh
 ./copy-command.sh
-########
-:'
-banner "Stow will set file to its location"                        
-read -p "Continue? [y/n] " yn 
-
-case $yn in 
-        y ) 
-                banner "ok, we will proceed"  
-                echo $PWD
-		ls
-		./masterstow.sh;;
-        * ) banner "skiped";;  
-esac
-'
 pbar 100 1
 banner "--------------------> END <-------------------- "
-#comment #uncomment to make comment malitpal line
+
 # running pbar for fun
 #pbar 1
 #pbar 100 1
